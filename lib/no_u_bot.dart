@@ -2,7 +2,6 @@ import 'package:teledart/teledart.dart';
 import 'package:teledart/telegram.dart';
 import 'package:teledart/model.dart';
 
-
 import 'defense_message.dart';
 import 'secret.dart';
 //import 'dart:io';
@@ -19,11 +18,12 @@ void init(String url) async {
       .onMessage()
       .where(
           (message) => (message.text?.toLowerCase()?.contains('no u')) ?? false)
-      .listen((message) => {
-            teleDart.replyMessage(message, 'no u'),
-            print(
-                '${message.from.username} sent the bot this message: ${message.text}')
-          });
+      .listen((message) {
+    teleDart.replyMessage(message, 'no u', withQuote: true);
+    print('group title: ${message.chat.title} id: ${message.chat.id}');
+    print(
+        '${message.from.username} sent the bot this message: ${message.text}');
+  });
 
 //  teleDart.onMessage()
 //  .where((message) => message.from?.first_name == 'Haley' ?? false)
@@ -47,7 +47,7 @@ void init(String url) async {
           message.text.toLowerCase().contains('cunt'))
       .listen((message) {
     defenseMessage.getDefenseMessage(message).then((response) {
-      teleDart.replyMessage(message, response);
+      teleDart.replyMessage(message, response, withQuote: true);
     });
     print(
         '${message.from.username} sent the bot this message: ${message.text}');
